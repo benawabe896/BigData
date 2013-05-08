@@ -14,7 +14,7 @@ def main():
 		line = json.loads(line)
 		if "text" in line:
 			notFound = []
-			for word in line['text'].split(' '):
+			for word in line['text'].encode('utf-8').split(' '):
 				if word in scores:
 					sent_total += scores[word]
 				else:
