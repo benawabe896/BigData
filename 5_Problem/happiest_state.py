@@ -1,4 +1,4 @@
-import sys, json
+import sys, json, operator
 
 states = {
 	'AK': 'Alaska',
@@ -93,8 +93,8 @@ def main():
 				if state not in state_sentiments:
 					state_sentiments[state] = 0
 				state_sentiments[state] += sent_total
-	for state in state_sentiments:
-		print state, " ", state_sentiments[state]
+	sorted_x = sorted(state_sentiments.iteritems(), key=operator.itemgetter(1), reverse=True)
+	print sorted_x[0][0]
 
 if __name__ == '__main__':
 	main()
