@@ -18,21 +18,19 @@ def main():
 		tweet_total = 0
 		line = json.loads(line)
 		if "text" in line:
-			notFound = []
-			for word in line['text'].encode('utf-8').split():
-				if word not in scores and word not in newscores:
-					newscores[word] = 0
-					notFound.append(word)
-				else:
-					if word in scores:
-						tweet_total += scores[word]
-			for word in notFound:
-				newscores[word] += tweet_total
+			words = line['text'].encode('utf-8').split()
+			for word in words:
+				if word in scores:
+					tweet_total += scores[word]
+			for word in words:
+				if word not in scores:
+					if word not in newscores:
+						newscores[word] = []
+					newscores[word].append(tweet_total)
 
 	for word in newscores:
-		print word, " ", newscores[word]
+		wordscore = sum(newscores[word]) / float(len(newscores[word]))
+		print " ".join([word, str(wordscore)])
 
 if __name__ == '__main__':
 	main()
-
-
