@@ -1,0 +1,6 @@
+sqlite> select count(*) from Frequency where term LIKE "parliament";
+count(*)  
+----------
+15        
+sqlite> 
+

@@ -1,0 +1,8 @@
+sqlite> select distinct docid from Frequency where docid in (select docid from Frequency where term = "transactions") AND docid in (select docid from Frequency where term = "world");
+docid         
+--------------
+13263_txt_earn
+2799_txt_acq  
+9795_txt_trade
+
+
