@@ -1,0 +1,17 @@
+SELECT *, sum(doccount) as sdoccount 
+FROM (
+	SELECT *, sum(a.count * b.count) as doccount, b.docid as bdoc 
+	FROM (
+		SELECT 'q' as docid, 'washington' as term, 1 as count 
+		UNION SELECT 'q' as docid, 'taxes' as term, 1 as count 
+		UNION SELECT 'q' as docid, 'treasury' as term, 1 as count) a 
+	JOIN (
+		SELECT * 
+		FROM frequency 
+		WHERE term IN ("washington", "taxes", "treasury")) b 
+	ON a.term = b.term 
+	GROUP BY b.docid, b.term) 
+GROUP BY bdoc 
+ORDER BY sdoccount DESC
+LIMIT 1;
+
